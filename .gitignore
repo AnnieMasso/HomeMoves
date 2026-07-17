@@ -1,0 +1,4 @@
+# fichier permettant d'ignorer les fichiers de configuration
+
+# configuration de la base de données
+configuration/Database.php
