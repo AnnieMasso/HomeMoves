@@ -9,6 +9,7 @@ class Equipe{
 
     public int $id;
     public string $libelle;
+    public string $description;
 
     public function __construct(object $db){
 
@@ -21,7 +22,7 @@ class Equipe{
     // fonction pour avoir toutes équipes
     public function getTeam(){
 
-        $get_team = $this->connection->prepare("SELECT libelle FROM $this->table");
+        $get_team = $this->connection->prepare("SELECT libelle, description FROM $this->table");
         $get_team->execute();
         return $get_team;
 
@@ -37,9 +38,10 @@ class Equipe{
     // fonction pour store une équipe
 
     public function storeTeam(){
-        $store_team = $this->connection->prepare("INSERT INTO $this->table (libelle) VALUE(:libelle)");
+        $store_team = $this->connection->prepare("INSERT INTO $this->table (libelle, description) VALUE(:libelle, :description)");
         $store_team->execute([
-            ":libelle" => $this->libelle
+            ":libelle" => $this->libelle,
+            ":description" => $this->description
         ]);
 
         if ($store_team) {
@@ -51,9 +53,10 @@ class Equipe{
 
     // fonction pour update la team 
     public function updateTeam(){
-        $update_team = $this->connection->prepare("UPDATE $this->table SET libelle = ? WHERE id = ?");
+        $update_team = $this->connection->prepare("UPDATE $this->table SET libelle = ?, description = ? WHERE id = ?");
         $update_team->execute([
             $this->libelle,
+            $this->description,
             $this->id
         ]);
 

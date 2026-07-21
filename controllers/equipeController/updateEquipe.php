@@ -10,9 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $team = new Equipe($db);
 
     $data = json_decode(file_get_contents('php://input'));
-    if (!empty($data->id) && !empty($data->libelle)) {
+    if (!empty($data->id) && !empty($data->libelle) && !empty($data->description)) {
         $team->id = $data->id;
         $team->libelle = htmlspecialchars($data->libelle);
+        $team->description = htmlspecialchars($data->description);
         $verify_id = $team->verifyId();
 
         if ($verify_id > 0) {

@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"));
     if (!empty($data->libelle)) {
         $team->libelle = htmlspecialchars($data->libelle);
+        $team->description = htmlspecialchars($data->description);
 
         $team_store = $team->storeTeam();
         if ($team) {
