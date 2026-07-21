@@ -12,9 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     try {
         //code...
 
-        if (!empty($data->role) && !empty($data->id)) {
+        if ((!empty($data->role) || !empty($data->email) || !empty($data->nomprenom) || !empty($data->tel) || !empty($data->profil)) && !empty($data->id)) {
             $user->id = $data->id;
             $user->role = htmlspecialchars($data->role);
+            $user->email = htmlspecialchars($data->email);
+            $user->tel = htmlspecialchars($data->tel);
+            $user->nomprenom = htmlspecialchars($data->nomprenom);
+            $user->profil = htmlspecialchars($data->profil);
 
             $result = $user->updateUser();
             if ($result) {

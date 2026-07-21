@@ -17,9 +17,12 @@ $getUser = $utilisateur->getUser();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if ($getUser->rowCount() > 0) {
+        $nb_users = '';
         $data = [];
         $data[] = $getUser->fetchAll();
+        $nb_users = $getUser->rowCount();
 
+        echo $nb_users;
         echo json_encode($data);
         var_dump($data);
     }

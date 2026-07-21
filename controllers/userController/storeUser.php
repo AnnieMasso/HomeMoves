@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = new Utilisateur($db);
 
     $data = json_decode(file_get_contents("php://input"));
-    if (!empty($data->nomprenom) && !empty($data->tel)&& !empty($data->email)&& !empty($data->role) && !empty($data->statut) && !empty($data->password) && !empty($data->profil) && !empty($data->id_equipe)) {
+    if (!empty($data->nomprenom) && !empty($data->tel)&& !empty($data->email)&& !empty($data->role) && !empty($data->password) && !empty($data->profil) && !empty($data->id_equipe)) {
 
         // on vérifie si le user existe déjà
         try {
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo json_encode(['message' => 'les mots de passe ne correspondent pas']);
             }
             $user->profil = htmlspecialchars($data->profil);
-            $user->statut = htmlspecialchars($data->statut);
+            // $user->statut = htmlspecialchars($data->statut);
             $user->id_equipe = htmlspecialchars($data->id_equipe);
             $emailExists = $user->verifyEmail();
             $telExists = $user->verifyTel();
