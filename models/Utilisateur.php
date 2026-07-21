@@ -63,7 +63,7 @@ class Utilisateur{
     // enregistrement des users
     public function storeUser(){
         
-        $requete = "INSERT INTO $this->table(nomprenom, tel, email, role, password, profil, statut, id_equipe) VALUE(:nomprenom, :tel, :email, :role, :password, :profil, :statut, :id_equipe)";
+        $requete = "INSERT INTO $this->table(nomprenom, tel, email, role, password, profil, statut, id_equipe) VALUE(:nomprenom, :tel, :email, :role, :password, :profil, 1, :id_equipe)";
         
         $requetepreparée = $this->connection->prepare($requete);
         $requetepreparée->execute([
@@ -73,7 +73,7 @@ class Utilisateur{
             ":role" => $this->role,
             ":password" => $this->password,
             ":profil" => $this->profil,
-            ":statut" => $this->statut,
+            // ":statut" => $this->statut,
             ":id_equipe"=>$this->id_equipe,
         ]);
 
@@ -91,9 +91,16 @@ class Utilisateur{
         try {
             //code...
 
-        $query = "UPDATE $this->table SET role = ? WHERE id = ?";
+        $query = "UPDATE $this->table SET role = ?, nomprenom = ?, tel = ?, email = ?, profil = ? WHERE id = ?";
         $update_user = $this->connection->prepare($query);
-        $update_user->execute([$this->role,$this->id]);
+        $update_user->execute([
+            $this->role,
+            $this->nomprenom,
+            $this->tel,
+            $this->email,
+            $this->profil,
+            $this->id,
+            ]);
         if ($update_user) {
            return true;
         }
