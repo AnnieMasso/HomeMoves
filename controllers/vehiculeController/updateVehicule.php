@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
         $vehicule->id = $data->id;
         $vehicule->type_vehicule = htmlspecialchars($data->type_vehicule);
         $vehicule->capacite = htmlspecialchars($data->capacite);
-        $verify_id = $vehicule->verifyId();
+        $verify_id = $vehicule->verifyId()->rowCount();
 
         if ($verify_id > 0) {
 

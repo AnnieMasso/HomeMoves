@@ -21,5 +21,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         echo json_encode(['Message' => "Aucun véhicule n'a encore été enregistré"]);
     }
 }else{
-    echo json_encode(["Messge"=> "Méthode non authorisée"]);
+    echo json_encode(["Message"=> "Méthode non authorisée"]);
 }

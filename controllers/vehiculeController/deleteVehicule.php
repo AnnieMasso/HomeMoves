@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     if (!empty($data->id)) {
         $vehicule->id = $data->id;
 
-        $verify_id = $vehicule->verifyId();
+        $verify_id = $vehicule->verifyId()->rowCount();
         if ($verify_id > 0) {
             $vehicule_deleted = $vehicule->deleteVehicule();
             if ($vehicule_deleted) {

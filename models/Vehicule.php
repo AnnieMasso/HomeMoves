@@ -9,7 +9,8 @@ class Vehicule{
 
     public int $id;
     public string $type_vehicule;
-    public int $capacite;
+    public string $capacite;
+    public bool $statut;
 
     public function __construct(object $db)
     {
@@ -21,7 +22,7 @@ class Vehicule{
     // fonction pour obtenir tous les véhicules
     public function getVehicule(){
 
-        $get_vehicule = $this->connection->prepare("SELECT type_vehicule, capacite FROM $this->table");
+        $get_vehicule = $this->connection->prepare("SELECT type_vehicule, capacite, statut FROM $this->table");
         $get_vehicule->execute();
         return $get_vehicule;
 
@@ -29,14 +30,14 @@ class Vehicule{
 
     // fonction pour vérifier si l'id exixte
     public function verifyId(){
-        $verify_id = $this->connection->prepare("SELECT type_vehicule FROM $this->table WHERE id = ? ");
+        $verify_id = $this->connection->prepare("SELECT * FROM $this->table WHERE id = ? ");
         $verify_id->execute([$this->id]);
-        return $verify_id->rowCount();
+        return $verify_id;
     }
 
     // fonction pour store le getVehicule
-        public function storeVehicule(){
-        $store_vehicule = $this->connection->prepare("INSERT INTO $this->table (type_vehicule, capacite) VALUE(:type_vehicule, :capacite)");
+    public function storeVehicule(){
+        $store_vehicule = $this->connection->prepare("INSERT INTO $this->table (type_vehicule, capacite, statut) VALUE(:type_vehicule, :capacite, true)");
         $store_vehicule->execute([
             ":type_vehicule" => $this->type_vehicule,
             ":capacite" => $this->capacite
@@ -64,6 +65,18 @@ class Vehicule{
             return false;
         }
 
+    }
+
+    // fonction pour changer le statut du véhicule lorsqu'il est occupé
+    public function updateStatutVehicule(){
+        $update_statut = $this->connection->prepare("UPDATE $this->table SET statut = false WHERE id = ?");
+        $update_statut->execute([$this->id]);
+
+        if ($update_statut) {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     // fonction pour delete la vehicule
