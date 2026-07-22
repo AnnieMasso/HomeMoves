@@ -136,7 +136,7 @@ class Demenagement{
 
     // supression des moves
     public function deleteMove(){
-        $query = "UPDATE $this->table SET etat = $this->'supprimé' WHERE id = ?";
+        $query = "UPDATE $this->table SET etat = 'supprimé' WHERE id = ?";
         $delete_move = $this->connection->prepare($query);
         $delete_move->execute([
             $this->id
