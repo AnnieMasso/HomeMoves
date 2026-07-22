@@ -11,6 +11,7 @@ class Commentaire{
     public string $date;
     public string $message;
     public string $id_user;
+    public string $heure;
 
     public function __construct(object $db){
 
@@ -39,9 +40,9 @@ class Commentaire{
     // fonction pour store une équipe
 
     public function storeComment(){
-        $store_commentaire = $this->connection->prepare("INSERT INTO $this->table (date, message, id_user) VALUE(:date, :message, :id_user)");
+        $store_commentaire = $this->connection->prepare("INSERT INTO $this->table (date, message, id_user, heure) VALUE(NOW(), :message, :id_user, CURRENT_TIME)");
         $store_commentaire->execute([
-            ":date" => $this->date,
+            // ":date" => $this->date,
             ":message" => $this->message,
             ":id_user" => $this->id_user,
         ]);

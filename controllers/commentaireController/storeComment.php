@@ -13,8 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $comment = new Commentaire($db);
     
     $data = json_decode(file_get_contents("php://input"));
-    if (!empty($data->date) && !empty($data->message) && !empty($data->id_user)) {
-        $comment->date = $data->date;
+    if (!empty($data->message) && !empty($data->id_user)) {
+        // $comment->date = $data->date;
         $comment->message = $data->message;
         $comment->id_user = $data->id_user;
 

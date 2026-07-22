@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === "DELETE") {
 
     if (!empty($data->id)) {
         $comment->id = $data->id;
-        $comment_deleted = $comments->deleteComment();
+        $comment_deleted = $comment->deleteComment();
 
         if ($comment_deleted) {
             echo json_encode(["message" =>"comment supprimé avec succès"]);
